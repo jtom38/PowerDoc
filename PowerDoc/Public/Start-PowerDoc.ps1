@@ -26,14 +26,20 @@ function Start-PowerDoc {
             throw "PathInput: $PathInput was not found."
         }
 
+        $Global:PowerDoc = @{
+            "PathOutput" = $PathOutput
+            "PathInput" = $PathInput
+        }
+
         if ( [System.IO.Directory]::Exists($PathOutput) -eq $false) {
             [System.IO.Directory]::CreateDirectory($PathOutput) | Out-Null
         }
 
         if ( $CleanOutput -eq $true ) {
-            [System.IO.Directory]::Delete($PathOutput)
+            [System.IO.Directory]::Delete($PathOutput, $true)
             [System.IO.Directory]::CreateDirectory($PathOutput) | Out-Null
         }
+
 
         if ( $Recurse -eq $true ){
             $Files  = Get-ChildItem -Path $PathInput -Filter *.ps1 -Recurse
@@ -44,6 +50,7 @@ function Start-PowerDoc {
         foreach ($f in $Files) {
 
             if ( $Classes -eq $true ){
+                $Global:PowerDoc.Add("File", $f)
                 Start-ClassInspection -File $f.FullName -Markdown
             }
         }

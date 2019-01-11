@@ -71,14 +71,12 @@ function Start-ClassInspection {
 
                 $Properties += Get-Properties -Line $l
                 Continue
-            }
-    
-
-    
+            }    
         }
     
 
         Write-host "hi dad im done"
+        ConvertTo-Markdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods
         # Generate our output file at the end once we picked over the file
         #New-Item -Path $OutputFolder -Name $info.Name | Out-Null
     
