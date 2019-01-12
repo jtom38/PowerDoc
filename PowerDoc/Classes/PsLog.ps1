@@ -1,7 +1,12 @@
 
-# This is the entry point for PsLog.  
-# From here we can extend into other classes.
-class PsLog {
+<#
+.Synopsis
+This is the starting point to interface with PSLog.  All messages get passed though here to keep things simple.
+
+.Example
+
+#>
+class PsLog : Cookie {
   
     PsLog() {
         # Default is false
@@ -163,4 +168,10 @@ class PsLog {
         $info = [System.IO.FileInfo]::new($MyInvocation.ScriptName)
         return $info.Name
     }
+
+    hidden [void] AmIFound(){
+
+    }
+
+    
 }

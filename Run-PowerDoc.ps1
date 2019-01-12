@@ -1,7 +1,7 @@
 Import-Module .\PowerDoc\PowerDoc.psm1 -Force
 
 Start-PowerDoc -PathInput ".\PowerDoc\Classes" `
-    -PathOutput ".\docs" `
+    -PathOutput ".\bin\Classes" `
     -CleanOutput `
     -Classes
 
