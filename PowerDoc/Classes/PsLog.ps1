@@ -6,7 +6,7 @@ This is the starting point to interface with PSLog.  All messages get passed tho
 .Example
 
 #>
-class PsLog : Cookie {
+class PsLog {
   
     PsLog() {
         # Default is false
@@ -29,6 +29,7 @@ class PsLog : Cookie {
     [PSObject] $CsvConfig
     [PSObject] $ConsoleConfig
     [PSObject] $EventLogConfig
+    hidden [PSObject] $CookieTime
     # End Region
     
     # Region Logging Methods

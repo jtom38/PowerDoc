@@ -35,6 +35,11 @@ function Start-ClassInspection {
                     # Found a comment line, skip
                     Continue
                 }
+
+                # Check for Hidden Properties/Methods
+                if ( $l.Contains('hidden ')){
+                    Continue
+                }
         
                 # Checking for class name
                 if ( $l.StartsWith('class') -eq $true ) {
@@ -86,8 +91,6 @@ function Start-ClassInspection {
                     $Methods += Get-Method -Line $l
                     Continue
                 }
-
-                
 
                 # Check for Properties
                 if ($l.Contains('[') -and $l.Contains(']') -and $l.Contains('$') -eq $true){

@@ -5,3 +5,8 @@ Start-PowerDoc -PathInput ".\PowerDoc\Classes" `
     -CleanOutput `
     -Classes
 
+Start-PowerDoc -PathInput ".\PowerDoc\Public" `
+    -PathOutput ".\bin\Public" `
+    -CleanOutput `
+
+    

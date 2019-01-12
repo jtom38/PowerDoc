@@ -65,7 +65,7 @@ function ConvertTo-Markdown {
                 Add-Content -Path $export -Value "## Base Classes"
                 Add-Content -Path $export -Value ''
                 foreach( $i in $BaseClasses){
-                    Add-Content -Path $export -Value "[$i]()"                    
+                    Add-Content -Path $export -Value "$i"                    
                 }                
                 Add-Content -Path $export -Value ''
             }
@@ -75,7 +75,7 @@ function ConvertTo-Markdown {
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value '```PowerShell'
                 foreach( $i in $Constructors){
-                    Add-Content -Path $export -Value "[$i]()"                    
+                    Add-Content -Path $export -Value "$i"                    
                 }
                 Add-Content -Path $export -Value '```'
                 Add-Content -Path $export -Value ''
@@ -97,7 +97,7 @@ function ConvertTo-Markdown {
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value '```PowerShell'
                 foreach( $i in $Methods){
-                    Add-Content -Path $export -Value "[$i]()"                    
+                    Add-Content -Path $export -Value "$i"                    
                 }
                 Add-Content -Path $export -Value '```'
                 Add-Content -Path $export -Value ''
