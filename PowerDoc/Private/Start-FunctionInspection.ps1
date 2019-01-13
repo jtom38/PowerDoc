@@ -17,7 +17,7 @@ function Start-FunctionInspection {
         $HelpDocs = ''
         foreach ( $l in $raw ) {
 
-            if ($l.Contains('function') -eq $true) {
+            if ($l.Contains('function') -and $l.Contains('{') -eq $true) {
                 $words = $l.Split(' ')
                 $FunctionName = $words[1]
 

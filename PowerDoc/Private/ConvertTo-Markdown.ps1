@@ -106,6 +106,17 @@ function ConvertTo-Markdown {
                 Add-Content -Path $export -Value '## Synopsis'
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value $HelpDocs.Synopsis
+                Add-Content -Path $export -Value ''
+            }
+
+            if ($HelpDocs.Description.Count -ge 1 ) {
+                Add-Content -Path $export -Value '## Description'
+                Add-Content -Path $export -Value ''
+
+                foreach ( $d in $HelpDocs.description) {
+                    Add-Content -Path $export -Value $d.Text
+                }
+                Add-Content -Path $export -Value ''
             }
             
             if ( $HelpDocs.syntax.syntaxItem.parameter.Count -ge 1) {
@@ -113,15 +124,26 @@ function ConvertTo-Markdown {
                 Add-Content -Path $export -Value ''
 
                 foreach ( $param in $HelpDocs.parameters.parameter){
-                    Add-Content -Path $export -Value "### $($param.Name)"
-                    Add-Content -Path $export -Value ''                    
-                    Add-Content -Path $export -Value "Type: $($param.Type.Name)"
-                    Add-Content -Path $export -Value "Required: $($param.Required)"
-                    Add-Content -Path $export -Value "Globbing: $($param.Globbing)"
-                    Add-Content -Path $export -Value "PipelineInput: $($param.PipelineInput)"
+                    Add-Content -Path $export -Value "### -$($param.Name)"
+                    Add-Content -Path $export -Value ''
+                    foreach ($d in $param.Description) {
+                        Add-Content -Path $export -Value $d.Text
+                    }
+                    
+                    Add-Content -Path $export -Value "Type: $($param.Type.Name)  return"
+                    Add-Content -Path $export -Value "Required: $($param.Required)  return"
+                    Add-Content -Path $export -Value "Globbing: $($param.Globbing)  return"
+                    Add-Content -Path $export -Value "PipelineInput: $($param.PipelineInput)  return"
                     Add-Content -Path $export -Value ''
                 }
                 
+            }
+
+            if ( $HelpDocs.returnValues.returnValue.type.name -ne "" ) {
+                Add-Content -Path $export -Value '## Returns'
+                Add-Content -Path $export -Value ''
+                Add-Content -Path $export -Value $HelpDocs.returnValues.returnValue.type.name
+                Add-Content -Path $export -Value ''
             }
 
             if ( $HelpDocs.examples.example.Count -ge 1 ) {

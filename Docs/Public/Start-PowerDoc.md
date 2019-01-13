@@ -1,0 +1,72 @@
+# Start-PowerDoc
+
+## Synopsis
+
+Starts the process off to build documentation
+
+## Description
+
+This is a function that you can use in a build process to document your commands.
+
+## Parameters
+
+### -PathOutput
+
+This defines where the files will be exported to once they are built.
+Type: String  return
+Required: true  return
+Globbing: false  return
+PipelineInput: false  return
+
+### -CleanOutput
+
+Use this switch if you want to have PowerDoc remove the output folder and rebuild.
+Type: SwitchParameter  return
+Required: false  return
+Globbing: false  return
+PipelineInput: false  return
+
+### -PathInput
+
+This defines the source of the files that you want to convert into documentation.
+This is only a string currently.  You can direct it to a single file or a folder.
+Type: String  return
+Required: true  return
+Globbing: false  return
+PipelineInput: false  return
+
+### -Recurse
+
+This is a flag that goes in tandum with PathInput.  If you toggle this switch the code will look though all folders under that layer.
+Type: SwitchParameter  return
+Required: false  return
+Globbing: false  return
+PipelineInput: false  return
+
+### -Classes
+
+Switch to define that we are looking at class files.
+Type: SwitchParameter  return
+Required: false  return
+Globbing: false  return
+PipelineInput: false  return
+
+### -Functions
+
+Switch to define that we are looking at function files.
+Type: SwitchParameter  return
+Required: false  return
+Globbing: false  return
+PipelineInput: false  return
+
+## Returns
+
+Returns nothing.
+
+## Examples
+
+```PowerShell
+Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Classes
+Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Functions
+```
+
