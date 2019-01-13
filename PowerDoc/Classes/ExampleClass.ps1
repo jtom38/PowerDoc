@@ -1,6 +1,6 @@
 
 # This is a example clas to show how the files get parced
-class ExampleClass : ExampleBaseClass {
+class ExampleClass : ExampleBaseClass, FakeClass {
     
     ExampleClass(){
         

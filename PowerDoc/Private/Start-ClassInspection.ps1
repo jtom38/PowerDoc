@@ -1,4 +1,7 @@
-
+<#
+.Example
+Start-ClassInspection -File ".\src\file.ps1" -Markdown
+#>
 function Start-ClassInspection {
     param (
         [string] $File,
@@ -22,6 +25,8 @@ function Start-ClassInspection {
             # Get the raw text of the file
             $raw = Get-Content -Path $File
         
+            $help = Get-Help $
+
             # Looking for any Constructors
             foreach ($l in $raw) {
                 #Constructors contain the class name... lets see if we can find them
@@ -41,42 +46,21 @@ function Start-ClassInspection {
                     Continue
                 }
         
+                if ( $l.Contains('static ')) {
+
+                }
+
                 # Checking for class name
                 if ( $l.StartsWith('class') -eq $true ) {
 
-                    # Get the Class Name
-                    $words = $l.Split(' ')
-                    $ClassName = $words[1]
-
-                    if ($l.Contains(':') -eq $true) {
-                        # We have a class that contains base classes
-
-                        $l = $l.Remove(0, $l.IndexOf(':')+1)
-
-                        if ( $l.Contains(',') -eq $true) {
-                            # More then one base class                        
-
-                            $words = $l.Split(',')                        
-                            foreach ($w in $words){
-                                
-                                $w = $w.TrimStart()
-                                $w = $w.Replace('{', '')
-                                $w = $w.TrimEnd()
-                                
-                                $BaseClasses += $w
-                            }
-                            Continue
-                        }
-
-                        # Only one base class
-                        $l =$l.TrimStart()
-                        $l = $l.Replace('{', '')
-                        $l = $l.TrimEnd()
-                        
-                        $BaseClasses += $l
-
+                    # Check if we had base classes
+                    if ( $l.Contains(':') -eq $true) {
+                        $BaseClasses += Get-BaseClasses -Line $l
                     }
 
+                    # Extracts the class Name
+                    $words = $l.Split(' ')
+                    $ClassName = $words[1]
                     Continue
                 }
         

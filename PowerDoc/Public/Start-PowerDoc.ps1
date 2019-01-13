@@ -1,4 +1,20 @@
+<#
+.SYNOPSIS
+Starts the process off to build documentation
 
+.DESCRIPTION
+This is a function that you can use in a build process to document your commands.
+
+.Example
+Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Classes
+
+.Example
+Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Functions
+
+.Outputs
+Returns nothing.
+
+#>
 function Start-PowerDoc {
     param (
         [Parameter(Mandatory=$true)]
@@ -12,8 +28,8 @@ function Start-PowerDoc {
         [switch] $Recurse,
 
         # Define the Code Type
-        [switch] $Classes
-        #[switch] $Functions,
+        [switch] $Classes,
+        [switch] $Functions
 
         # Define Output Types
         #[switch] $Markdown
@@ -50,10 +66,31 @@ function Start-PowerDoc {
         foreach ($f in $Files) {
 
             if ( $Classes -eq $true ){
-                $Global:PowerDoc.Add("File", $f)
+                try {
+                    $Global:PowerDoc.Remove("File")
+                    $Global:PowerDoc.Add("File", $f)
+                }
+                catch {
+                    $Global:PowerDoc.Add("File", $f)
+                }
+                
                 Start-ClassInspection -File $f.FullName -Markdown
             }
+            else {
+
+                try {
+                    $Global:PowerDoc.Remove("File", $f)
+                    $Global:PowerDoc.Add("File", $f)
+                }
+                catch {
+                    $Global:PowerDoc.Add("File", $f)
+                }
+
+                Start-FunctionInspection -File $f.FullName
+            }
         }
+
+        Write-Host "All files have been processed." 
     }
 
 }

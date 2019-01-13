@@ -1,4 +1,7 @@
-
+<#
+.DESCRIPTION
+This is a example file
+#>
 class ExampleBaseClass {
 
     ExampleBaseClass(){

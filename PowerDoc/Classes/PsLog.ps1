@@ -1,11 +1,4 @@
 
-<#
-.Synopsis
-This is the starting point to interface with PSLog.  All messages get passed though here to keep things simple.
-
-.Example
-
-#>
 class PsLog {
   
     PsLog() {
