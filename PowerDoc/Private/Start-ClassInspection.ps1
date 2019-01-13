@@ -5,12 +5,11 @@ Start-ClassInspection -File ".\src\file.ps1" -Markdown
 function Start-ClassInspection {
     param (
         [string] $File,
-        [switch] $Markdown
+        [switch] $Markdown,
+        [switch] $Html
     )
     
     Process {
-        
-        #[string] $Class = ".\PsLog\Classes\PsLog.ps1"
         
         if ([System.String]::IsNullOrEmpty($File) -eq $false) {
         
@@ -94,8 +93,14 @@ function Start-ClassInspection {
             }
 
             # Generate our output file at the end once we picked over the file
-            ConvertTo-Markdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses
-        
+
+            if ( $Markdown -eq $true ) {
+                ConvertTo-Markdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class
+            }
+
+            if ( $Html -eq $true) {
+
+            }        
         }
     }
 

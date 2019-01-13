@@ -63,8 +63,15 @@ function Start-PowerDoc {
     
     Process {
 
-        if ( [System.IO.Directory]::Exists($PathInput) -eq $false ) {
-            throw "PathInput: $PathInput was not found."
+        if ( $Recurse -eq $true ){
+            $Files  = Get-ChildItem -Path $PathInput -Filter *.ps1 -Recurse
+        }else{
+            $Files  = Get-ChildItem -Path $PathInput -Filter *.ps1
+        }   
+        $FilesCount = $Files | Measure-Object 
+
+        if ( $FilesCount.Count -eq 0 ) {
+            throw "PathInput: No .ps1 files found with provided path."
         }
 
         $Global:PowerDoc = @{
@@ -81,41 +88,26 @@ function Start-PowerDoc {
             [System.IO.Directory]::CreateDirectory($PathOutput) | Out-Null
         }
 
-
-        if ( $Recurse -eq $true ){
-            $Files  = Get-ChildItem -Path $PathInput -Filter *.ps1 -Recurse
-        }else{
-            $Files  = Get-ChildItem -Path $PathInput -Filter *.ps1
-        }        
-
         foreach ($f in $Files) {
 
-            if ( $Classes -eq $true ){
-                try {
-                    $Global:PowerDoc.Remove("File")
-                    $Global:PowerDoc.Add("File", $f)
-                }
-                catch {
-                    $Global:PowerDoc.Add("File", $f)
-                }
-                
+            try {
+                $Global:PowerDoc.Remove("File")
+                $Global:PowerDoc.Add("File", $f)
+            }
+            catch {
+                $Global:PowerDoc.Add("File", $f)
+            }
+
+            if ( $Classes -eq $true ){    
                 Start-ClassInspection -File $f.FullName -Markdown
             }
             else {
-
-                try {
-                    $Global:PowerDoc.Remove("File", $f)
-                    $Global:PowerDoc.Add("File", $f)
-                }
-                catch {
-                    $Global:PowerDoc.Add("File", $f)
-                }
 
                 Start-FunctionInspection -File $f.FullName
             }
         }
 
-        Write-Host "All files have been processed." 
+        #Write-Host "All files have been processed." -ForegroundColor Green
     }
 
 }
