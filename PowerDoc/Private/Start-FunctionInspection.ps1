@@ -1,4 +1,21 @@
 
+<#
+.Synopsis
+This function looks at the file in question and extracts information from it for processing.
+
+.Description
+This is a private function that will not be exposed.
+
+.Parameter File
+[string] Defines the function source file that will be inspected.
+
+.Example
+Start-FunctionInspection -File ".\PowerDoc\Start-PowerDoc.ps1"
+
+.Outputs
+[void]
+#>
+
 function Start-FunctionInspection {
     param (
         [Parameter(Mandatory=$true)]

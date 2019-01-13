@@ -1,3 +1,20 @@
+<#
+.Synopsis
+Extracts the base classes that where attached to a class.
+
+.Description
+This is a private function that will not be exposed.
+
+.Parameter Line
+[string] This is the line of data that will be looked at and extracted from.
+
+.Example
+Get-BaseClasses -Line $LineData
+
+.Outputs
+Returns either [string] or [string[]] depending on data found. 
+#>
+
 function Get-BaseClasses {
     param (
         [string] $Line

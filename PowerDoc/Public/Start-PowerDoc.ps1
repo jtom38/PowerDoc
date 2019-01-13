@@ -37,7 +37,7 @@ Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Classes
 Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Functions
 
 .Outputs
-Returns nothing.
+[void]
 
 #>
 function Start-PowerDoc {

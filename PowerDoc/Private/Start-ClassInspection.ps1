@@ -1,6 +1,29 @@
 <#
+.Synopsis
+This is the process that will read all the lines from a class file and extract important information.
+
+.Description
+This is a private function that will not be exposed.
+Each line of the file that is loaded will be looked at for spicifc notes.
+If the line contains data that is needed it will be stored.
+Once the file has been processed it will be sent over to be converted into a file to be used as documentation.
+
+.Parameter File
+[string] This contains the full or relative path to the file that needs to be inspected.
+
+.Parameter Markdown
+[swtich] Flag to let the function know that markdown is requested file type as export.
+
+.Parameter Html
+[swtich] Flag to let the function know that html is requested file type as export.
+
 .Example
 Start-ClassInspection -File ".\src\file.ps1" -Markdown
+Start-ClassInspection -File ".\src\file.ps1" -Html
+
+.Outputs
+[void]
+
 #>
 function Start-ClassInspection {
     param (
