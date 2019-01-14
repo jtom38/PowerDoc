@@ -1,12 +1,30 @@
+<#
+.Synopsis
+This is a script that I use to 
+#>
+
 Import-Module .\PowerDoc\PowerDoc.psm1 -Force
 
+
 Start-PowerDoc -PathInput ".\PowerDoc\Classes" `
-    -PathOutput ".\bin\Classes" `
+    -PathOutput ".\Docs\Classes" `
     -CleanOutput `
-    -Classes
+    -Classes `
+    -HTML `
+    -Markdown
+
 
 Start-PowerDoc -PathInput ".\PowerDoc\Public" `
-    -PathOutput ".\bin\Public" `
+    -PathOutput ".\Docs\Public" `
     -CleanOutput `
+    -Functions `
+    -HTML `
+    -Markdown
 
-    
+
+Start-PowerDoc -PathInput ".\PowerDoc\Private" `
+    -PathOutput ".\Docs\Private" `
+    -CleanOutput `
+    -Functions `
+    -HTML `
+    -Markdown

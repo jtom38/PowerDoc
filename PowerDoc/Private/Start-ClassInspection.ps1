@@ -1,13 +1,38 @@
+<#
+.Synopsis
+This is the process that will read all the lines from a class file and extract important information.
 
+.Description
+This is a private function that will not be exposed.
+Each line of the file that is loaded will be looked at for spicifc notes.
+If the line contains data that is needed it will be stored.
+Once the file has been processed it will be sent over to be converted into a file to be used as documentation.
+
+.Parameter File
+[string] This contains the full or relative path to the file that needs to be inspected.
+
+.Parameter Markdown
+[swtich] Flag to let the function know that markdown is requested file type as export.
+
+.Parameter Html
+[swtich] Flag to let the function know that html is requested file type as export.
+
+.Example
+Start-ClassInspection -File ".\src\file.ps1" -Markdown
+Start-ClassInspection -File ".\src\file.ps1" -Html
+
+.Outputs
+[void]
+
+#>
 function Start-ClassInspection {
     param (
         [string] $File,
-        [switch] $Markdown
+        [switch] $Markdown,
+        [switch] $Html
     )
     
     Process {
-        
-        #[string] $Class = ".\PsLog\Classes\PsLog.ps1"
         
         if ([System.String]::IsNullOrEmpty($File) -eq $false) {
         
@@ -22,6 +47,8 @@ function Start-ClassInspection {
             # Get the raw text of the file
             $raw = Get-Content -Path $File
         
+            $help = Get-Help $
+
             # Looking for any Constructors
             foreach ($l in $raw) {
                 #Constructors contain the class name... lets see if we can find them
@@ -41,42 +68,21 @@ function Start-ClassInspection {
                     Continue
                 }
         
+                if ( $l.Contains('static ')) {
+
+                }
+
                 # Checking for class name
                 if ( $l.StartsWith('class') -eq $true ) {
 
-                    # Get the Class Name
-                    $words = $l.Split(' ')
-                    $ClassName = $words[1]
-
-                    if ($l.Contains(':') -eq $true) {
-                        # We have a class that contains base classes
-
-                        $l = $l.Remove(0, $l.IndexOf(':')+1)
-
-                        if ( $l.Contains(',') -eq $true) {
-                            # More then one base class                        
-
-                            $words = $l.Split(',')                        
-                            foreach ($w in $words){
-                                
-                                $w = $w.TrimStart()
-                                $w = $w.Replace('{', '')
-                                $w = $w.TrimEnd()
-                                
-                                $BaseClasses += $w
-                            }
-                            Continue
-                        }
-
-                        # Only one base class
-                        $l =$l.TrimStart()
-                        $l = $l.Replace('{', '')
-                        $l = $l.TrimEnd()
-                        
-                        $BaseClasses += $l
-
+                    # Check if we had base classes
+                    if ( $l.Contains(':') -eq $true) {
+                        $BaseClasses += Get-BaseClasses -Line $l
                     }
 
+                    # Extracts the class Name
+                    $words = $l.Split(' ')
+                    $ClassName = $words[1]
                     Continue
                 }
         
@@ -110,8 +116,14 @@ function Start-ClassInspection {
             }
 
             # Generate our output file at the end once we picked over the file
-            ConvertTo-Markdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses
-        
+            
+            if ( $Markdown -eq $true ) {
+                Export-ToMarkdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class
+            }
+
+            if ( $Html -eq $true) {
+                Export-ToHtml -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class
+            }        
         }
     }
 
