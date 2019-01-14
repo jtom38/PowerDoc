@@ -30,7 +30,7 @@ function Get-Constructor {
         $t = $line
 
         # Check for blank Constructor
-        if ( $t.Contains('()') -eq $true) {                
+        if ( $t.Contains($ClassName) -and $t.Contains('()') -eq $true) {                
             # Remove Whitespace
             $t = $t.TrimStart()
             $t = $t.Replace('{','')
@@ -39,7 +39,7 @@ function Get-Constructor {
         }
 
         # Check for Constructors with Variables
-        if ( $t.Contains('[') -and $t.Contains(']') -eq $true) {
+        if ( $t.Contains($ClassName) -and $t.Contains('(') -and $t.Contains(')') $t.Contains('[') -and $t.Contains(']') -eq $true) {
             $t = $t.TrimStart()
             $t = $t.Replace('{','')
             $t = $t.TrimEnd()

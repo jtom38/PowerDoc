@@ -3,6 +3,7 @@
 This is a script that I use to 
 #>
 
+Remove-Module .\PowerDoc\PowerDoc.psm1 -Force
 Import-Module .\PowerDoc\PowerDoc.psm1 -Force
 
 

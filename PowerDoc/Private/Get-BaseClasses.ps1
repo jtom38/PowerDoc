@@ -23,6 +23,7 @@ function Get-BaseClasses {
     Process {
         # Get the Class Name
         $BaseClasses = @()
+        $l = $Line
 
         if ( $l.Contains(':') -and $l.Contains(',') -eq $true) {
 
