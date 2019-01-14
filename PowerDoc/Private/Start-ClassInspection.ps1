@@ -116,7 +116,7 @@ function Start-ClassInspection {
             }
 
             # Generate our output file at the end once we picked over the file
-
+            
             if ( $Markdown -eq $true ) {
                 Export-ToMarkdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class
             }

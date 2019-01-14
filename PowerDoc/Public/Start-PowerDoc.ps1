@@ -99,6 +99,12 @@ function Start-PowerDoc {
             }
 
             if ( $Classes -eq $true ){
+
+                if ( $Markdown -eq $true -and $HTML -eq $true ){
+                    Start-ClassInspection -File $f.FullName -Markdown -HTML
+                    Continue
+                }
+
                 if ( $Markdown -eq $true ) {
                     Start-ClassInspection -File $f.FullName -Markdown
                 }
@@ -109,11 +115,19 @@ function Start-PowerDoc {
                 
             }
             else {
-                Start-FunctionInspection -File $f.FullName
+                if ( $Markdown -eq $true -and $HTML -eq $true ){
+                    Start-FunctionInspection -File $f.FullName -Markdown -HTML
+                    Continue
+                }
+
+                if ($Markdown -eq $true){
+                    Start-FunctionInspection -File $f.FullName -Markdown
+                }
+
+                if ( $HTML -eq $true ){
+                    Start-FunctionInspection -File $f.FullName -HTML    
+                }                
             }
         }
-
-        #Write-Host "All files have been processed." -ForegroundColor Green
     }
-
 }
