@@ -36,11 +36,11 @@ This is a private function so it is not exposed.
 [void]
 
 .Example
-ConvertTo-Markdown -Class -Class "ClassName" -BaseClasses $BaseClasses -Constructor $Contructors
-ConvertTo-Markdown -Function -FunctionName "Start-PowerDoc" -HelpDocs Get-Help Start-PowerDoc
+Export-ToMarkdown -Class -Class "ClassName" -BaseClasses $BaseClasses -Constructor $Contructors
+Export-ToMarkdown -Function -FunctionName "Start-PowerDoc" -HelpDocs Get-Help Start-PowerDoc
 #>
 
-function ConvertTo-Markdown {
+function Export-ToMarkdown {
     param (
 
         [switch] $Class,        

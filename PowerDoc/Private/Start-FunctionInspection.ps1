@@ -19,7 +19,10 @@ Start-FunctionInspection -File ".\PowerDoc\Start-PowerDoc.ps1"
 function Start-FunctionInspection {
     param (
         [Parameter(Mandatory=$true)]
-        [string] $File
+        [string] $File,
+
+        [switch] $Markdown,
+        [switch] $HTML
     )
 
     Process {
@@ -46,7 +49,15 @@ function Start-FunctionInspection {
                 $FunctionName = $words[1]
 
                 $HelpDocs = Get-Help $FunctionName
-                ConvertTo-Markdown -Function -FunctionName $FunctionName -HelpDocs $HelpDocs
+
+                if ( $Markdown -eq $true ) {
+                    Export-ToMarkdown -Function -FunctionName $FunctionName -HelpDocs $HelpDocs
+                }
+
+                if ( $HTML -eq $true ) {
+                    Export-ToHTML -Function -FunctionName $FunctionName -HelpDocs $HelpDocs
+                }
+                
                 $stop = $true
                 Continue
             }

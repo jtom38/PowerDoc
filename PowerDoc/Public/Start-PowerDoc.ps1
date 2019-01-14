@@ -54,11 +54,11 @@ function Start-PowerDoc {
 
         # Define the Code Type
         [switch] $Classes,
-        [switch] $Functions
+        [switch] $Functions,
 
         # Define Output Types
-        #[switch] $Markdown
-        #[switch] $HTML
+        [switch] $Markdown,
+        [switch] $HTML
     )
     
     Process {
@@ -98,11 +98,17 @@ function Start-PowerDoc {
                 $Global:PowerDoc.Add("File", $f)
             }
 
-            if ( $Classes -eq $true ){    
-                Start-ClassInspection -File $f.FullName -Markdown
+            if ( $Classes -eq $true ){
+                if ( $Markdown -eq $true ) {
+                    Start-ClassInspection -File $f.FullName -Markdown
+                }
+                
+                if ( $HTML -eq $true ) {
+                    Start-ClassInspection -File $f.FullName -HTML
+                }
+                
             }
             else {
-
                 Start-FunctionInspection -File $f.FullName
             }
         }
