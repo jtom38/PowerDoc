@@ -47,7 +47,7 @@ function Start-ClassInspection {
             # Get the raw text of the file
             $raw = Get-Content -Path $File
         
-            $help = Get-Help $
+            #$help = Get-Help $
 
             # Looking for any Constructors
             foreach ($l in $raw) {
@@ -100,20 +100,10 @@ function Start-ClassInspection {
                 }                
 
                 # Check for Properties
-                if ($l.Contains('[') -and $l.Contains(']') -and $l.Contains('$') -eq $true){
-                    if ($l.Contains($ClassName) -eq $true ){
-                        Continue
-                    }
-
-                    # Check for .net calls being returned to vars
-                    $t = $l
-                    if ($t.TrimStart().StartsWith('$') -eq $true){
-                        Continue
-                    }
-
-                    $Properties += Get-Properties -Line $l
-                    Continue
-                }    
+                $propResult = Get-Properties -Line $l
+                if( [System.String]::IsNullOrEmpty($propResult) -eq $false) {
+                    $Properties += $propResult
+                }  
             }
 
             # Generate our output file at the end once we picked over the file

@@ -21,6 +21,12 @@ function Get-Method {
     
     Process{
 
+        $l = $Line
+        if ($l.COntains('hidden ') -eq $true) {
+            #ignore hidden methods
+            return $null
+        }
+
         if ( $l.Contains('[') -and $l.Contains(']') -and $l.Contains('(') -and $l.Contains(')') -and $l.Contains('{') -eq $true) {
             $l = $Line
             $l = $l.TrimStart()
@@ -28,7 +34,8 @@ function Get-Method {
             $l = $l.TrimEnd()
     
             return $l
-            Continue
         }
+
+        return $null
     }
 }

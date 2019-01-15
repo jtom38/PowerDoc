@@ -27,23 +27,31 @@ function Get-Constructor {
 
     Process {
         
-        $t = $line
+        #$Line = $line
+
+        if ( $Line.Contains('hidden ') -eq $true ) {
+            return $null
+        }
+
+        
 
         # Check for blank Constructor
-        if ( $t.Contains($ClassName) -and $t.Contains('()') -eq $true) {                
+        if ( $Line.Contains($ClassName) -and $Line.Contains('()') -eq $true) {                
             # Remove Whitespace
-            $t = $t.TrimStart()
-            $t = $t.Replace('{','')
-            $t = $t.TrimEnd()
-            return $t
+            $Line = $Line.TrimStart()
+            $Line = $Line.Replace('{','')
+            $Line = $Line.TrimEnd()
+            return $Line
         }
 
         # Check for Constructors with Variables
-        if ( $t.Contains($ClassName) -and $t.Contains('(') -and $t.Contains(')') -and $t.Contains('[') -and $t.Contains(']') -eq $true) {
-            $t = $t.TrimStart()
-            $t = $t.Replace('{','')
-            $t = $t.TrimEnd()
-            return $t
+        if ( $Line.Contains($ClassName) -and $Line.Contains('(') -and $Line.Contains(')') -and $Line.Contains('[') -and $Line.Contains(']') -eq $true) {
+            $Line = $Line.TrimStart()
+            $Line = $Line.Replace('{','')
+            $Line = $Line.TrimEnd()
+            return $Line
         }
+
+        return $null
     }   
 }
