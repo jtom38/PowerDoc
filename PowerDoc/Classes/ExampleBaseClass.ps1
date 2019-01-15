@@ -1,12 +1,9 @@
 <#
 .DESCRIPTION
 This is a example file
+
 #>
 class ExampleBaseClass {
-
-    ExampleBaseClass(){
-        throw "I am a base class and can not be instanced."
-    }
 
     [string] $Property
     hidden [string] $HiddenProperty

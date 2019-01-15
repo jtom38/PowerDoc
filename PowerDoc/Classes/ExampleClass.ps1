@@ -1,6 +1,23 @@
 
-# This is a example clas to show how the files get parced
-class ExampleClass : ExampleBaseClass, FakeClass {
+<#
+.Description
+This is a test
+
+.Parameter Property
+[string] This is just a filler.
+
+.Example
+$class = [ExampleClass]::new()
+$class.Method($true)
+
+.Notes
+This is line one.
+This is line two.
+
+#>
+
+# This is a example clas to show how the files get looked at.
+class ExampleClass : ExampleBaseClass {
     
     ExampleClass(){
         
@@ -17,11 +34,11 @@ class ExampleClass : ExampleBaseClass, FakeClass {
         
     }
 
-    hidden HiddenMethod() {
+    hidden [void] HiddenMethod() {
 
     }
 
-    static StaticMethod() {
+    static [void] StaticMethod() {
 
     }
 
