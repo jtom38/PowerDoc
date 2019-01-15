@@ -7,3 +7,5 @@ Import-Module $Module -Force
 Import-Module Pester
 
 . .\Tests\Get-BaseClasses.Test.ps1
+. .\Tests\Get-Constructor.Test.ps1
+. .\Tests\Get-Method.Test.ps1

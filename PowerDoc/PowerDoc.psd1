@@ -12,7 +12,7 @@
     RootModule = 'PowerDoc.psm1'
     
     # Version number of this module.
-    ModuleVersion = '0.0.1'
+    ModuleVersion = '1.0.0'
     
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -21,19 +21,19 @@
     GUID = '50ddc55f-a016-4733-aa43-d1387bbba301'
     
     # Author of this module
-    Author = 'james.tombleson'
+    Author = 'James Tombleson'
     
     # Company or vendor of this module
     CompanyName = 'Unknown'
     
     # Copyright statement for this module
-    Copyright = '(c) james.tombleson. All rights reserved.'
+    Copyright = '(c) James Tombleson. All rights reserved.'
     
     # Description of the functionality provided by this module
-    # Description = ''
+    Description = 'Module that builds markdown or html files as documentation based off of functions and classes.'
     
     # Minimum version of the PowerShell engine required by this module
-    # PowerShellVersion = ''
+    PowerShellVersion = '5.0'
     
     # Name of the PowerShell host required by this module
     # PowerShellHostName = ''
@@ -58,10 +58,7 @@
     
     # Script files (.ps1) that are run in the caller's environment prior to importing this module.
     <#
-    ScriptsToProcess = @(
-        ".\ImportLib.ps1",
-        ".\ImportClasses.ps1"
-    )
+    ScriptsToProcess = @()
     #>
     
     # Type files (.ps1xml) to be loaded when importing this module
@@ -74,7 +71,9 @@
     # NestedModules = @()
     
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = '*'
+    FunctionsToExport = @(
+        "Start-PowerDoc"
+    )
     
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport = '*'
@@ -119,7 +118,7 @@
     } # End of PrivateData hashtable
     
     # HelpInfo URI of this module
-    # HelpInfoURI = ''
+    HelpInfoURI = 'https://github.com/luther38/PowerDoc'
     
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = ''

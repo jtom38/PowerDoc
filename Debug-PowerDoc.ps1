@@ -2,13 +2,10 @@
 .Synopsis
 This is a script that I use to 
 #>
-
-Remove-Module .\PowerDoc\PowerDoc.psm1 -Force
 Import-Module .\PowerDoc\PowerDoc.psm1 -Force
 
-
 Start-PowerDoc -PathInput ".\PowerDoc\Classes" `
-    -PathOutput ".\Docs\Classes" `
+    -PathOutput ".\Bin\Classes" `
     -CleanOutput `
     -Classes `
     -HTML `
@@ -16,7 +13,7 @@ Start-PowerDoc -PathInput ".\PowerDoc\Classes" `
 
 
 Start-PowerDoc -PathInput ".\PowerDoc\Public" `
-    -PathOutput ".\Docs\Public" `
+    -PathOutput ".\Bin\Public" `
     -CleanOutput `
     -Functions `
     -HTML `
@@ -24,7 +21,7 @@ Start-PowerDoc -PathInput ".\PowerDoc\Public" `
 
 
 Start-PowerDoc -PathInput ".\PowerDoc\Private" `
-    -PathOutput ".\Docs\Private" `
+    -PathOutput ".\Bin\Private" `
     -CleanOutput `
     -Functions `
     -HTML `

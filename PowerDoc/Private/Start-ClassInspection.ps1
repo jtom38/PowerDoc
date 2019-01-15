@@ -93,10 +93,11 @@ function Start-ClassInspection {
                 }
         
                 # Check for Methods
-                if ( $l.Contains('[') -and $l.Contains(']') -and $l.Contains('(') -and $l.Contains(')') -and $l.Contains('{') -eq $true) {
-                    $Methods += Get-Method -Line $l
+                $methodResult = Get-Method -Line $l
+                if ( [System.String]::IsNullOrEmpty($methodResult) -eq $false ) {
+                    $Methods += $methodResult
                     Continue
-                }
+                }                
 
                 # Check for Properties
                 if ($l.Contains('[') -and $l.Contains(']') -and $l.Contains('$') -eq $true){

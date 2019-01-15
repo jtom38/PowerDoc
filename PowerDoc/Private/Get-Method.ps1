@@ -21,11 +21,14 @@ function Get-Method {
     
     Process{
 
-        $l = $Line
-        $l = $l.TrimStart()
-        $l = $l.Replace('{', '')
-        $l = $l.TrimEnd()
-
-        return $l
+        if ( $l.Contains('[') -and $l.Contains(']') -and $l.Contains('(') -and $l.Contains(')') -and $l.Contains('{') -eq $true) {
+            $l = $Line
+            $l = $l.TrimStart()
+            $l = $l.Replace('{', '')
+            $l = $l.TrimEnd()
+    
+            return $l
+            Continue
+        }
     }
 }
