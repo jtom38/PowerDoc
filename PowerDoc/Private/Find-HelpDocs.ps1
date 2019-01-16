@@ -51,9 +51,21 @@ function Find-HelpDocs {
         
                 if ( $lastBlock -ne ""){
                     #Write our info to the hash
+                    
+                    foreach( $e in $hash.GetEnumerator()){
+                        if ( $lastBlock -eq $e.Key) {
+                            $e.Value += $Comment
+                            $lastBlock = ""
+                            $Comment = @()
+                            Continue
+                        }                        
+                    }
+
+                    # This is the default path but if we app
                     $hash.Add($lastBlock, $Comment)
                     $lastBlock = ""
                     $Comment = @()
+
                 }
         
                 #Make note of the block we are on

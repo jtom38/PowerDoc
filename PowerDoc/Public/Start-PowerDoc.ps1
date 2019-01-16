@@ -1,11 +1,11 @@
 <#
-.SYNOPSIS
+.Synopsis
 Starts the process off to build documentation
 
-.DESCRIPTION
+.Description
 This is a function that you can use in a build process to document your commands.
 
-.PARAMETER PathOutput
+.Parameter PathOutput
 This defines where the files will be exported to once they are built.
 
 .Parameter PathInput
@@ -32,7 +32,6 @@ Defines that the export of the files will be in .html format.
 
 .Example
 Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Classes
-
 .Example
 Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Functions
 

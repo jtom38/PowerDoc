@@ -53,7 +53,7 @@ function Export-ToMarkdown {
 
         [switch] $Function,
         [string] $FunctionName,
-        [psobject] $HelpDocs
+        [hashtable] $HelpDocs
     )
     
     Process {

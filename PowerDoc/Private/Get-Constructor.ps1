@@ -54,6 +54,6 @@ function Get-Constructor {
             return $Line
         }
 
-        return Continue
+        Continue
     }   
 }
