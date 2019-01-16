@@ -36,6 +36,9 @@ function Start-FunctionInspection {
         $SearchForHelpDocs = $false
         $HelpDocs = ''
 
+        #$HelpDocs = Get-Help $FunctionName
+        $HelpDocs = Find-HelpDocs -PathFile $info.FullName
+
         $stop = $false
         foreach ( $l in $raw ) {
 
@@ -48,7 +51,7 @@ function Start-FunctionInspection {
                 $words = $l.Split(' ')
                 $FunctionName = $words[1]
 
-                $HelpDocs = Get-Help $FunctionName
+                
 
                 if ( $Markdown -eq $true ) {
                     Export-ToMarkdown -Function -FunctionName $FunctionName -HelpDocs $HelpDocs

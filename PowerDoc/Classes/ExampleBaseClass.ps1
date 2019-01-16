@@ -1,9 +1,9 @@
-<#
-.DESCRIPTION
-This is a example file
 
-#>
 class ExampleBaseClass {
+
+    ExampleBaseClass(){
+        
+    }
 
     [string] $Property
     hidden [string] $HiddenProperty
@@ -16,11 +16,11 @@ class ExampleBaseClass {
         
     }
 
-    hidden HiddenMethod() {
+    hidden [void] HiddenMethod() {
 
     }
 
-    static StaticMethod() {
+    static [void] StaticMethod() {
 
     }
 }

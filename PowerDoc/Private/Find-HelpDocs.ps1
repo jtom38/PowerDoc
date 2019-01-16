@@ -1,11 +1,25 @@
 
-function Get-ClassHelp {
+<#
+.Description
+This is a function that will assist with extracting the same documenation that you already write for Functions.  
+
+.Parameter PathFile
+[string] Pass the full path to your class file.  
+
+.Outputs
+You will get a PSObject in the form of a hashtable.
+
+.Example
+$hash = Get-ClassHelp -PathFile ".\PowerDoc\Classes\ExampleClass"
+
+#>
+function Find-HelpDocs {
     param (
-        [string] $PathClassFile
+        [string] $PathFile
     )
     
     Process{
-        $class = Get-Content -Path $PathClassFile
+        $class = Get-Content -Path $PathFile
 
         $CommentBlock = $false
         $hash = @{}

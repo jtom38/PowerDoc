@@ -21,7 +21,7 @@ Get-Constructor -Line $Line -ClassName "Cookie"
 #>
 function Get-Constructor {
     param (
-        [string] $line,
+        [string] $Line,
         [string] $ClassName
     )
 
@@ -30,10 +30,12 @@ function Get-Constructor {
         #$Line = $line
 
         if ( $Line.Contains('hidden ') -eq $true ) {
-            return $null
+            Continue
         }
 
-        
+        if ( $Line.Contains('::new') -eq $true ) {
+            Continue
+        }
 
         # Check for blank Constructor
         if ( $Line.Contains($ClassName) -and $Line.Contains('()') -eq $true) {                
@@ -52,6 +54,6 @@ function Get-Constructor {
             return $Line
         }
 
-        return $null
+        return Continue
     }   
 }

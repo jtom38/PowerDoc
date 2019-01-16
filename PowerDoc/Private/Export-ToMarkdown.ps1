@@ -49,6 +49,7 @@ function Export-ToMarkdown {
         [string[]] $Constructors,
         [string[]] $Properties,
         [string[]] $Methods,
+        [hashtable] $ClassHelp,
 
         [switch] $Function,
         [string] $FunctionName,
@@ -66,7 +67,7 @@ function Export-ToMarkdown {
             $export = "$($path)$($name)"
 
             if ( [System.IO.File]::Exists($export) -eq $true ) {
-                [System.IO..File]::Delete($export)
+                [System.IO.File]::Delete($export)
             }
             New-Item -Name $name -Path $path | Out-Null
             
@@ -75,9 +76,26 @@ function Export-ToMarkdown {
             Add-Content -Path $export -Value "# $ClassName"
             Add-Content -Path $export -Value ''
             
+            if ( $ClassHelp -ne ""){
+                Add-Content -Path $export -Value '## Help Documentation'
+                Add-Content -Path $export -Value ''
+                # Import what we got from the Help Template
+                foreach( $k in $ClassHelp.GetEnumerator() ){
+                    Add-Content -Path $export -Value "### $($K.key)"
+                    Add-Content -Path $export -Value ''
+
+                    foreach ($item in $k.Value){
+                        Add-Content -Path $export -Value "$item"
+                    }
+                    Add-Content -Path $export -Value ''
+                }
+            }
+
             # If we have Base Classes, export
+            Add-Content -Path $export -Value '## Class Documentation'
+            Add-Content -Path $export -Value ''
             if ( [System.String]::IsNullOrEmpty($BaseClasses) -eq $false) {
-                Add-Content -Path $export -Value "## Base Classes"
+                Add-Content -Path $export -Value "### Base Classes"
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value '```PowerShell'
                 foreach( $i in $BaseClasses){
@@ -88,7 +106,7 @@ function Export-ToMarkdown {
             }
 
             if ( [System.String]::IsNullOrEmpty($Constructors) -eq $false ) {
-                Add-Content -Path $export -Value "## Constructors"
+                Add-Content -Path $export -Value "### Constructors"
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value '```PowerShell'
                 foreach( $i in $Constructors){
@@ -99,7 +117,7 @@ function Export-ToMarkdown {
             }
             
             if ( [System.String]::IsNullOrEmpty($Properties) -eq $false ) {
-                Add-Content -Path $export -Value "## Properties"
+                Add-Content -Path $export -Value "### Properties"
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value '```PowerShell'
                 foreach( $i in $Properties){
@@ -110,7 +128,7 @@ function Export-ToMarkdown {
             }
 
             if ( [System.String]::IsNullOrEmpty($Methods) -eq $false ) {
-                Add-Content -Path $export -Value "## Methods"
+                Add-Content -Path $export -Value "### Methods"
                 Add-Content -Path $export -Value ''
                 Add-Content -Path $export -Value '```PowerShell'
                 foreach( $i in $Methods){

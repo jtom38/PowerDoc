@@ -47,7 +47,7 @@ function Start-ClassInspection {
             # Get the raw text of the file
             $raw = Get-Content -Path $File
         
-            #$help = Get-Help $
+            [hashtable] $help = Find-HelpDocs -PathFile $info.FullName
 
             # Looking for any Constructors
             foreach ($l in $raw) {
@@ -88,7 +88,10 @@ function Start-ClassInspection {
         
                 # Checking for Constructors
                 if ( $l.Contains($ClassName) -eq $true ) {
-                    $Constructors += Get-Constructor -Line $l -ClassName $ClassName
+                    $ConstructorResult = Get-Constructor -Line $l -ClassName $ClassName
+                    if ( [System.String]::IsNullOrEmpty($ConstructorResult) -eq $false) {
+                        $Constructors += $ConstructorResult
+                    }            
                     Continue
                 }
         
@@ -109,11 +112,11 @@ function Start-ClassInspection {
             # Generate our output file at the end once we picked over the file
             
             if ( $Markdown -eq $true ) {
-                Export-ToMarkdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class
+                Export-ToMarkdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class -ClassHelp $help
             }
 
             if ( $Html -eq $true) {
-                Export-ToHtml -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class
+                Export-ToHtml -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class -ClassHelp $help
             }        
         }
     }
