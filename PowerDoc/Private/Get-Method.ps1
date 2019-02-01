@@ -27,6 +27,14 @@ function Get-Method {
             return $null
         }
 
+        if ( $l.Contains('if') -eq $true ) {
+            return $null
+        }
+
+        if ( $l.Contains('::') -eq $true ) {
+            return $null
+        }
+
         if ( $l.Contains('[') -and $l.Contains(']') -and $l.Contains('(') -and $l.Contains(')') -and $l.Contains('{') -eq $true) {
             $l = $Line
             $l = $l.TrimStart()

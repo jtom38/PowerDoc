@@ -30,11 +30,15 @@ function Get-Constructor {
         #$Line = $line
 
         if ( $Line.Contains('hidden ') -eq $true ) {
-            Continue
+            return $null
         }
 
         if ( $Line.Contains('::new') -eq $true ) {
-            Continue
+            return $null
+        }
+
+        if ( $Line.Contains('.') -eq $true) {
+            return $null
         }
 
         # Check for blank Constructor

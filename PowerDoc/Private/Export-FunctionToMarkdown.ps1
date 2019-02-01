@@ -79,7 +79,7 @@ function Export-FunctionToMarkdown {
         # Check for .Parameter
         foreach( $k in $HelpDocs.GetEnumerator() ){
             if( $k.key.ToLower().Contains("parameter ")){
-                Add-Content -Path $export -Value "### $($K.key)"
+                Add-Content -Path $export -Value "## $($K.key)"
                 Add-Content -Path $export -Value ''
 
                 foreach ($item in $k.Value){

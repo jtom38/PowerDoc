@@ -15,6 +15,22 @@ function Get-Properties {
             Return $null
         }
 
+        if ( $Line.Contains('if')-eq $true ) {
+            return $null
+        }
+
+        if ( $Line.Contains('#') -eq $true ) {
+            return $null
+        }
+
+        if ($Line.Contains('::') -eq $true){
+            return $null
+        }
+
+        if ($Line.Contains('=') -eq $true) {
+            return $null
+        }
+
         if ($Line.Contains('[') -and `
             $Line.Contains(']') -and `
             $Line.Contains('$') -eq $true){

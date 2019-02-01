@@ -43,11 +43,16 @@ function Export-ClassToMarkdown {
             Add-Content -Path $export -Value '## Help Documentation'
             Add-Content -Path $export -Value ''
 
-            if ($ClassHelp.Synopsis -ne "") {
-                Add-Content -Path $export -Value '## Synopsis'
-                Add-Content -Path $export -Value ''
-                Add-Content -Path $export -Value $ClassHelp.Synopsis
-                Add-Content -Path $export -Value ''
+            foreach( $k in $ClassHelp.GetEnumerator() ){
+                if( $k.key.ToLower().Contains("synopsis")){
+                    Add-Content -Path $export -Value "## $($K.key)"
+                    Add-Content -Path $export -Value ''
+    
+                    foreach ($item in $k.Value){
+                        Add-Content -Path $export -Value "$item"
+                    }
+                    Add-Content -Path $export -Value ''
+                }
             }
 
             # Check for .Description
@@ -66,7 +71,7 @@ function Export-ClassToMarkdown {
             # Check for .Parameter
             foreach( $k in $ClassHelp.GetEnumerator() ){
                 if( $k.key.ToLower().Contains("parameter ")){
-                    Add-Content -Path $export -Value "### $($K.key)"
+                    Add-Content -Path $export -Value "## $($K.key)"
                     Add-Content -Path $export -Value ''
     
                     foreach ($item in $k.Value){
