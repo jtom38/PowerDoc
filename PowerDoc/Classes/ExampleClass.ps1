@@ -16,7 +16,7 @@ This is line two.
 
 #>
 
-# This is a example clas to show how the files get looked at.
+# This is a example class to show how the files get looked at.
 class ExampleClass : ExampleBaseClass {
     
     ExampleClass(){

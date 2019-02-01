@@ -51,14 +51,12 @@ function Start-FunctionInspection {
                 $words = $l.Split(' ')
                 $FunctionName = $words[1]
 
-                
-
                 if ( $Markdown -eq $true ) {
-                    Export-ToMarkdown -Function -FunctionName $FunctionName -HelpDocs $HelpDocs
+                    Export-FunctionToMarkdown -FunctionName $FunctionName -HelpDocs $HelpDocs
                 }
 
                 if ( $HTML -eq $true ) {
-                    Export-ToHTML -Function -FunctionName $FunctionName -HelpDocs $HelpDocs
+                    Export-FunctionToHtml -FunctionName $FunctionName -HelpDocs $HelpDocs
                 }
                 
                 $stop = $true

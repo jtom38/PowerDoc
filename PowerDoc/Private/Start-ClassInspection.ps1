@@ -112,11 +112,11 @@ function Start-ClassInspection {
             # Generate our output file at the end once we picked over the file
             
             if ( $Markdown -eq $true ) {
-                Export-ToMarkdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class -ClassHelp $help
+                Export-ClassToMarkdown -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -ClassHelp $help
             }
 
             if ( $Html -eq $true) {
-                Export-ToHtml -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -Class -ClassHelp $help
+                Export-ClassToHtml -FileName $info.Name -ClassName $ClassName -Constructors $Constructors -Properties $Properties -Methods $Methods -BaseClasses $BaseClasses -ClassHelp $help
             }        
         }
     }

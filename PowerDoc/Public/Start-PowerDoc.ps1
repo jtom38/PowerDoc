@@ -6,33 +6,40 @@ Starts the process off to build documentation
 This is a function that you can use in a build process to document your commands.
 
 .Parameter PathOutput
+Type: String
 This defines where the files will be exported to once they are built.
 
 .Parameter PathInput
+Type: String
 This defines the source of the files that you want to convert into documentation.
 This is only a string currently.  You can direct it to a single file or a folder.
 
 .Parameter CleanOutput
+Type: Switch
 Use this switch if you want to have PowerDoc remove the output folder and rebuild.
 
 .Parameter Recurse
+Type: Switch
 This is a flag that goes in tandum with PathInput.  If you toggle this switch the code will look though all folders under that layer.
 
 .Parameter Classes
+Type: Switch
 Switch to define that we are looking at class files.
 
 .Parameter Functions
+Type: Switch
 Switch to define that we are looking at function files.
 
 .Parameter Markdown
+Type: Switch
 Defines that export of the files will be in .md format.
 
 .Parameter HTML
+Type: Switch
 Defines that the export of the files will be in .html format.
 
 .Example
 Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Classes
-.Example
 Start-PowerDoc -PathOutput ".\docs" -PathInput ".\src" -Functions
 
 .Outputs
